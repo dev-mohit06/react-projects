@@ -21,7 +21,6 @@ const taskReducer = (state, action) => {
         case "update":
             return state.map((task, index) => {
                 if (index === action.params.position) {
-                    console.log(action.params.status);
                     return { ...task, completed: action.params.status };
                 }
                 return task;
