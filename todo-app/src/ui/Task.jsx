@@ -13,7 +13,7 @@ const Task = ({ className, position }) => {
 
   const handelClick = () => {
     setHasCompleted(prevState => !prevState);
-    updateTaskStatus(position);
+    updateTaskStatus(position, !hasCompleted);
   }
 
   const handelRemove = () => {

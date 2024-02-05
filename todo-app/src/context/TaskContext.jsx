@@ -20,8 +20,9 @@ const taskReducer = (state, action) => {
 
         case "update":
             return state.map((task, index) => {
-                if (index === action.position) {
-                    return { ...task, completed: true };
+                if (index === action.params.position) {
+                    console.log(action.params.status);
+                    return { ...task, completed: action.params.status };
                 }
                 return task;
             });
@@ -38,7 +39,12 @@ const TaskProvider = ({ children }) => {
         tasks: tasksState,
         createTask: (newTask) => dispatch({ type: "add", newTask: newTask }),
         removeTask: (position) => dispatch({ type: "remove", position: position }),
-        updateTaskStatus: (position) => dispatch({ type: "update", position: position }),
+        updateTaskStatus: (position, status) => dispatch({
+            type: "update", params: {
+                position: position,
+                status: status,
+            }
+        }),
     };
 
     return (<TaskContext.Provider value={taskContext}>
