@@ -1,21 +1,26 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import SecondaryRoundedButton from '../components/buttons/SecondaryRoundedButton'
 import { FaCheck } from 'react-icons/fa'
 import Task from './Task'
 import CreateTaskInput from '../components/inputs/CreateTaskInput'
+import TaskContext from "../context/TaskContext";
 
-const Card = ({ tasks, onTasksChange, onTasksDelete }) => {
+const Card = () => {
+
+    const { tasks, createTask } = useContext(TaskContext);
 
     const containerStyle = {
         overflowY: 'auto',
         scrollbarWidth: 'thin',
     };
 
+
+
     const loadTask = () => {
         if (tasks.length === 0) return <p className='text-primary text-base font-semibold'>No task yet.</p>
         else {
-            return tasks.map((task, index) => (
-                <Task key={(index + 1)} position={index} task={task} onDelete={onTasksDelete} />
+            return tasks.map((_, index) => (
+                <Task key={(index + 1)} position={index} />
             ));
         }
     }
@@ -34,7 +39,7 @@ const Card = ({ tasks, onTasksChange, onTasksDelete }) => {
                 {loadTask()}
             </div>
 
-            <CreateTaskInput placeholder={"Enter a new task"} onCreateTask={onTasksChange} />
+            <CreateTaskInput placeholder={"Enter a new task"} onCreateTask={createTask} />
         </div>
     )
 }
